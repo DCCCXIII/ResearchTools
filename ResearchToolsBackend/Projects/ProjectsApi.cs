@@ -30,8 +30,8 @@ namespace ResearchToolsBackend.Projects
 
         [FunctionName("Projects_GetById")]
         public static IActionResult GetProjectById(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "projects/{id}")]HttpRequest req,
-            [Table("project", "PROJECT", "{id}", Connection = "AzureWebJobsStorage")] ProjectTableEntity todo,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "projects/{id}")]HttpRequest req,
+            [Table("projects", "PROJECT", "{id}", Connection = "AzureWebJobsStorage")] ProjectTableEntity todo,
             ILogger log, string id)
         {
             log.LogInformation("Getting project item by id");
@@ -45,8 +45,8 @@ namespace ResearchToolsBackend.Projects
 
         [FunctionName("Projects_Create")]
         public static async Task<IActionResult> CreateProject(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "projects")]HttpRequest req,
-            [Table("todos", Connection = "AzureWebJobsStorage")] IAsyncCollector<ProjectTableEntity> projectTable,
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = "projects")]HttpRequest req,
+            [Table("projects", Connection = "AzureWebJobsStorage")] IAsyncCollector<ProjectTableEntity> projectTable,
             ILogger log)
         {
             log.LogInformation("Creating a new project.");
@@ -60,7 +60,7 @@ namespace ResearchToolsBackend.Projects
 
         [FunctionName("Projects_Update")]
         public static async Task<IActionResult> UpdateProject(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "projects/{id}")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "put", Route = "projects/{id}")] HttpRequest req,
             [Table("projects", Connection = "AzureWebJobsStorage")] CloudTable projectTable,
             ILogger log, string id)
         {
@@ -89,7 +89,7 @@ namespace ResearchToolsBackend.Projects
         [FunctionName("Projects_Delete")]
         public static async Task<IActionResult> DeleteProject(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "projects/{id}")] HttpRequest req,
-            [Table("todos", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
+            [Table("projects", Connection = "AzureWebJobsStorage")] CloudTable todoTable,
             ILogger log, string id)
         {
             log.LogInformation("Deleting a project");
