@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ResearchToolsBackend.Models
+namespace ResearchToolsBackend.ResearchCards
 {
-    public class ResearchCard
+    public class ResearchCardTableEntity : TableEntity
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString("n");
-        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
-        public string ProjectId { get; set; }
+        public DateTime CreatedTime { get; set; }
         public string Source { get; set; }
         public string Quote { get; set; }
         public string Summary { get; set; }
